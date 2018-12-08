@@ -85,7 +85,7 @@ void creategraph(char *filename,vex_node *g)
     int tmpx=0,tmpy=0;
     bool findx,findy;
     ifstream in(filename);
-    printf("here2\n");
+    //printf("here2\n");
     while(!in.eof())
     {
         // new input
@@ -94,7 +94,7 @@ void creategraph(char *filename,vex_node *g)
         findx=false;
         findy=false;
         printf("here3\n");
-        //search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
+        search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
         /*for(i=0;i<sta;i++)
         {
             if(g[i].vex_num==y)
@@ -177,7 +177,7 @@ int main(int argc,char *argv[])
     size_t size = SIZE * sizeof(vex_node);
     cudaMallocManaged(&g, size);
 
-    printf("here\n");
+    //printf("here\n");
     begin=clock();
     creategraph(argv[1],g);
     end=clock();
