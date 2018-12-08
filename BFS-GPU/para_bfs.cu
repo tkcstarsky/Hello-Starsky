@@ -37,7 +37,7 @@ typedef struct vex_node
 
 int graph_size;
 
-__global__ void search_kernel(int N,vex_node *g,bool &findx,bool &findy,int &tmpx,int &tmpy)
+__global__ void search_kernel(int N,vex_node *g,bool &findx,bool &findy,int &tmpx,int &tmpy,int &x,int &y)
 {
     int index= threadIdx.x + blockIdx.x * blockDim.x;
     int gridStride = gridDim.x * blockDim.x;
@@ -58,7 +58,6 @@ __global__ void search_kernel(int N,vex_node *g,bool &findx,bool &findy,int &tmp
 }
 void creategraph(char *filename,vex_node *g)
 {
-    int i;
     int x,y;
     int sta=0;
     int tmpx,tmpy;
@@ -73,7 +72,7 @@ void creategraph(char *filename,vex_node *g)
         findx=false;
         findy=false;
 
-        search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy);
+        search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
         /*for(i=0;i<sta;i++)
         {
             if(g[i].vex_num==y)
@@ -158,6 +157,8 @@ void bfs(int src)
 
 int main(int argc,char *argv[])
 {
+    int deviceId;
+    int numberOfSMs;
     cudaGetDevice(&deviceId);
     cudaDeviceGetAttribute(&numberOfSMs, cudaDevAttrMultiProcessorCount, deviceId);
     threadsPerBlock = 256;
