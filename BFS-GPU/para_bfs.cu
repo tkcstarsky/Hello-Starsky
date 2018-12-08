@@ -84,6 +84,7 @@ void creategraph(char *filename,vex_node *g)
     int sta=0;
     int tmpx=0,tmpy=0;
     bool findx,findy;
+    edge_node *q;
     ifstream in(filename);
     //printf("here2\n");
     while(!in.eof())
@@ -132,7 +133,7 @@ void creategraph(char *filename,vex_node *g)
         printf("here5\n");
         // update node edges table 
         edge_node *p=g[tmpx].edges;
-        edge_node *q;
+        
         cudaMallocManaged(&q, sizeof(edge_node));
         printf("here6\n");
         q->vex=tmpy;
