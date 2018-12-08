@@ -95,6 +95,7 @@ void creategraph(char *filename,vex_node *g)
         findy=false;
         printf("here3\n");
         search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
+        cudaDeviceSynchronize();
         /*for(i=0;i<sta;i++)
         {
             if(g[i].vex_num==y)
