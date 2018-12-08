@@ -133,8 +133,8 @@ void creategraph(char *filename,vex_node *g)
         printf("here5\n");
         // update node edges table 
         edge_node *p=g[tmpx].edges;
-        
-        cudaMallocManaged(&q, sizeof(edge_node));
+        q=new edge_node;
+        //cudaMallocManaged(&q, sizeof(edge_node));
         printf("here6\n");
         q->vex=tmpy;
         q->next=NULL;
