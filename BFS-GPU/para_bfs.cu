@@ -60,7 +60,7 @@ void creategraph(char *filename,vex_node *g)
 {
     int x,y;
     int sta=0;
-    int tmpx,tmpy;
+    int tmpx=0,tmpy=0;
     bool findx,findy;
     ifstream in(filename);
     
@@ -72,7 +72,7 @@ void creategraph(char *filename,vex_node *g)
         findx=false;
         findy=false;
 
-        search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
+        //search_kernel<<<numberOfBlocks, threadsPerBlock>>>(sta,g,findx,findy,tmpx,tmpy,x,y);
         /*for(i=0;i<sta;i++)
         {
             if(g[i].vex_num==y)
