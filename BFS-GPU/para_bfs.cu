@@ -56,6 +56,28 @@ __global__ void search_kernel(int N,vex_node *g,bool &findx,bool &findy,int &tmp
         //if(findx&&findy) break;
     }
 }
+
+void printgraph(vex_node *g)
+{
+    int i;
+    int total=0,max=0;
+    for(i=0;i<graph_size;i++)
+    {
+        printf("No.%d: num=%d,edges:",i,g[i].vex_num);
+        edge_node *p=g[i].edges;
+        total=0;
+        while(p!=NULL)
+        {
+            printf("%d ",g[p->vex].vex_num);
+            total++;
+            p=p->next;
+        }
+        if(max<total) max=total;
+        printf("\n");
+    }
+    //printf("max deepth:%d",max);
+}
+
 void creategraph(char *filename,vex_node *g)
 {
     int x,y;
@@ -125,32 +147,14 @@ void creategraph(char *filename,vex_node *g)
         // cheak map
         if(y!=g[tmpy].vex_num) 
             printf("Error:map wrong!\n");
-
+        graph_size=sta;
+        printgraph(g);
         //printf("current vex number: %d\n",sta);
     }
     graph_size=sta;
 }
 
-void printgraph(vex_node *g)
-{
-    int i;
-    int total=0,max=0;
-    for(i=0;i<graph_size;i++)
-    {
-        //printf("No.%d: num=%d,edges:",i,g[i].vex_num);
-        edge_node *p=g[i].edges;
-        total=0;
-        while(p!=NULL)
-        {
-            //printf("%d ",g[p->vex].vex_num);
-            total++;
-            p=p->next;
-        }
-        if(max<total) max=total;
-        //printf("\n");
-    }
-    printf("max deepth:%d",max);
-}
+
 
 void bfs(int src)
 {
